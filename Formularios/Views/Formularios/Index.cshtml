@@ -2,12 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
+    var formulario = (Formularios.Models.Formulario)ViewBag.Formulario;
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { id = formulario?.Id })
 </p>
 <table class="table">
     <tr>

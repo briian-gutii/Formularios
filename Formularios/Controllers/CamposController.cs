@@ -18,7 +18,9 @@ namespace Formularios.Controllers
         // GET: Campos
         public ActionResult Index(int id)
         {
+            Formulario formulario = db.Formularios.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name && x.Id == id);
             var campos = db.Campos.Where(x => x.FormularioId == id && x.Formulario.AspNetUser.UserName == User.Identity.Name).Include(c => c.Formulario).Include(c => c.Tipos);
+            ViewBag.Formulario = formulario;
             return View(campos.ToList());
         }
         
