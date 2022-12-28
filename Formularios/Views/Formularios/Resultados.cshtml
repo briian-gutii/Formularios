@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Formularios.Models.Recoleccione>
+
+@{
+    ViewBag.Title = "Resultados";
+}
+
+<h2>Resultados</h2>
+<table class="table">
+    <tr>
+        <th>Fecha y hora</th>
+        @foreach(var campo in Model.FirstOrDefault()?.Formulario.Campos)
+        {
+            <th>@campo.Titulo</th>
+        }
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.FechaRegistro.ToString("dd-MM-yyyy HH:mm")
+        </td>
+        @foreach (var dato in item.RecoleccionesDetalles)
+        {
+            <td>
+                @switch (dato.TipoId)
+                {
+                    case 1:
+                        @dato.ValorTexto;
+                        break;
+
+                    case 2:
+                        @dato.ValorNumero;
+                        break;
+
+                    case 3:
+                        @dato.ValorFecha.Value.ToString("dd-MM-yyyy");
+                        break;
+
+                }
+            </td>
+        }
+    </tr>
+}
+
+</table>

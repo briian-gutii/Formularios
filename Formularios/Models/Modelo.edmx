@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="formulariosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormularioId" Type="int" Nullable="false" />
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" />
+          <Property Name="TipoId" Type="int" Nullable="false" />
+          <Property Name="Requerido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Formularios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="UsuarioId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recolecciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormularioId" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecoleccionesDetalles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecoleccionId" Type="int" Nullable="false" />
+          <Property Name="CampoId" Type="int" Nullable="false" />
+          <Property Name="TipoId" Type="int" Nullable="false" />
+          <Property Name="ValorTexto" Type="varchar" MaxLength="500" />
+          <Property Name="ValorNumero" Type="int" />
+          <Property Name="ValorFecha" Type="date" />
+        </EntityType>
+        <EntityType Name="Tipos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TipoHtml" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreHtml" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Campos_Formularios">
+          <End Role="Formularios" Type="Self.Formularios" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formularios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="FormularioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formularios_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Formularios" Type="Self.Formularios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formularios">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recolecciones_Formularios">
+          <End Role="Formularios" Type="Self.Formularios" Multiplicity="1" />
+          <End Role="Recolecciones" Type="Self.Recolecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formularios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recolecciones">
+              <PropertyRef Name="FormularioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="CampoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Recolecciones">
+          <End Role="Recolecciones" Type="Self.Recolecciones" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recolecciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="RecoleccionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="formulariosModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formularios" EntityType="Self.Formularios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recolecciones" EntityType="Self.Recolecciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecoleccionesDetalles" EntityType="Self.RecoleccionesDetalles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipos" EntityType="Self.Tipos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Campos_Formularios" Association="Self.FK_Campos_Formularios">
+            <End Role="Formularios" EntitySet="Formularios" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Tipos" Association="Self.FK_Campos_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formularios_AspNetUsers" Association="Self.FK_Formularios_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Formularios" EntitySet="Formularios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recolecciones_Formularios" Association="Self.FK_Recolecciones_Formularios">
+            <End Role="Formularios" EntitySet="Formularios" />
+            <End Role="Recolecciones" EntitySet="Recolecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Campos" Association="Self.FK_RecoleccionesDetalles_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Recolecciones" Association="Self.FK_RecoleccionesDetalles_Recolecciones">
+            <End Role="Recolecciones" EntitySet="Recolecciones" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Tipos" Association="Self.FK_RecoleccionesDetalles_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="formulariosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormularioId" Type="Int32" Nullable="false" />
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoId" Type="Int32" Nullable="false" />
+          <Property Name="Requerido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Formulario" Relationship="Self.FK_Campos_Formularios" FromRole="Campos" ToRole="Formularios" />
+          <NavigationProperty Name="Tipos" Relationship="Self.FK_Campos_Tipos" FromRole="Campos" ToRole="Tipos" />
+          <NavigationProperty Name="RecoleccionesDetalles" Relationship="Self.FK_RecoleccionesDetalles_Campos" FromRole="Campos" ToRole="RecoleccionesDetalles" />
+        </EntityType>
+        <EntityType Name="Formulario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Formularios" FromRole="Formularios" ToRole="Campos" />
+          <NavigationProperty Name="Recolecciones" Relationship="Self.FK_Recolecciones_Formularios" FromRole="Formularios" ToRole="Recolecciones" />
+          <NavigationProperty Name="AspNetUser" Relationship="formulariosModel.FK_Formularios_AspNetUsers" FromRole="Formulario" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="Recoleccione">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormularioId" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Formulario" Relationship="Self.FK_Recolecciones_Formularios" FromRole="Recolecciones" ToRole="Formularios" />
+          <NavigationProperty Name="RecoleccionesDetalles" Relationship="Self.FK_RecoleccionesDetalles_Recolecciones" FromRole="Recolecciones" ToRole="RecoleccionesDetalles" />
+        </EntityType>
+        <EntityType Name="RecoleccionesDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecoleccionId" Type="Int32" Nullable="false" />
+          <Property Name="CampoId" Type="Int32" Nullable="false" />
+          <Property Name="TipoId" Type="Int32" Nullable="false" />
+          <Property Name="ValorTexto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ValorNumero" Type="Int32" />
+          <Property Name="ValorFecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_RecoleccionesDetalles_Campos" FromRole="RecoleccionesDetalles" ToRole="Campos" />
+          <NavigationProperty Name="Recoleccione" Relationship="Self.FK_RecoleccionesDetalles_Recolecciones" FromRole="RecoleccionesDetalles" ToRole="Recolecciones" />
+          <NavigationProperty Name="Tipos" Relationship="Self.FK_RecoleccionesDetalles_Tipos" FromRole="RecoleccionesDetalles" ToRole="Tipos" />
+        </EntityType>
+        <EntityType Name="Tipos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Tipos" FromRole="Tipos" ToRole="Campos" />
+          <NavigationProperty Name="RecoleccionesDetalles" Relationship="Self.FK_RecoleccionesDetalles_Tipos" FromRole="Tipos" ToRole="RecoleccionesDetalles" />
+          <Property Name="TipoHtml" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreHtml" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Campos_Formularios">
+          <End Role="Formularios" Type="Self.Formulario" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formularios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="FormularioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="CampoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recolecciones_Formularios">
+          <End Role="Formularios" Type="Self.Formulario" Multiplicity="1" />
+          <End Role="Recolecciones" Type="Self.Recoleccione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formularios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recolecciones">
+              <PropertyRef Name="FormularioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Recolecciones">
+          <End Role="Recolecciones" Type="Self.Recoleccione" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recolecciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="RecoleccionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecoleccionesDetalles_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="RecoleccionesDetalles" Type="Self.RecoleccionesDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecoleccionesDetalles">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="formulariosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Campos" EntityType="Self.Campos" />
+          <EntitySet Name="Formularios" EntityType="Self.Formulario" />
+          <EntitySet Name="Recolecciones" EntityType="Self.Recoleccione" />
+          <EntitySet Name="RecoleccionesDetalles" EntityType="Self.RecoleccionesDetalle" />
+          <EntitySet Name="Tipos" EntityType="Self.Tipos" />
+          <AssociationSet Name="FK_Campos_Formularios" Association="Self.FK_Campos_Formularios">
+            <End Role="Formularios" EntitySet="Formularios" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Tipos" Association="Self.FK_Campos_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Campos" Association="Self.FK_RecoleccionesDetalles_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recolecciones_Formularios" Association="Self.FK_Recolecciones_Formularios">
+            <End Role="Formularios" EntitySet="Formularios" />
+            <End Role="Recolecciones" EntitySet="Recolecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Recolecciones" Association="Self.FK_RecoleccionesDetalles_Recolecciones">
+            <End Role="Recolecciones" EntitySet="Recolecciones" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecoleccionesDetalles_Tipos" Association="Self.FK_RecoleccionesDetalles_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="RecoleccionesDetalles" EntitySet="RecoleccionesDetalles" />
+          </AssociationSet>
+          <EntitySet Name="C__MigrationHistory" EntityType="formulariosModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="formulariosModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="formulariosModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="formulariosModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="formulariosModel.AspNetUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="formulariosModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="formulariosModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formularios_AspNetUsers" Association="formulariosModel.FK_Formularios_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Formulario" EntitySet="Formularios" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="formulariosModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="formulariosModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="formulariosModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="formulariosModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="formulariosModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="formulariosModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Formularios" Relationship="formulariosModel.FK_Formularios_AspNetUsers" FromRole="AspNetUser" ToRole="Formulario" />
+          <NavigationProperty Name="AspNetRoles" Relationship="formulariosModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="formulariosModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="formulariosModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="formulariosModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="formulariosModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formularios_AspNetUsers">
+          <End Type="formulariosModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="formulariosModel.Formulario" Role="Formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulario">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="formulariosModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="formulariosModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="formulariosModelStoreContainer" CdmEntityContainer="formulariosEntities">
+          <EntitySetMapping Name="Campos">
+            <EntityTypeMapping TypeName="formulariosModel.Campos">
+              <MappingFragment StoreEntitySet="Campos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormularioId" ColumnName="FormularioId" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="Requerido" ColumnName="Requerido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formularios">
+            <EntityTypeMapping TypeName="formulariosModel.Formulario">
+              <MappingFragment StoreEntitySet="Formularios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recolecciones">
+            <EntityTypeMapping TypeName="formulariosModel.Recoleccione">
+              <MappingFragment StoreEntitySet="Recolecciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormularioId" ColumnName="FormularioId" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecoleccionesDetalles">
+            <EntityTypeMapping TypeName="formulariosModel.RecoleccionesDetalle">
+              <MappingFragment StoreEntitySet="RecoleccionesDetalles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RecoleccionId" ColumnName="RecoleccionId" />
+                <ScalarProperty Name="CampoId" ColumnName="CampoId" />
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="ValorTexto" ColumnName="ValorTexto" />
+                <ScalarProperty Name="ValorNumero" ColumnName="ValorNumero" />
+                <ScalarProperty Name="ValorFecha" ColumnName="ValorFecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipos">
+            <EntityTypeMapping TypeName="formulariosModel.Tipos">
+              <MappingFragment StoreEntitySet="Tipos">
+                <ScalarProperty Name="NombreHtml" ColumnName="NombreHtml" />
+                <ScalarProperty Name="TipoHtml" ColumnName="TipoHtml" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="formulariosModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="formulariosModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="formulariosModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="formulariosModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="formulariosModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="formulariosModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

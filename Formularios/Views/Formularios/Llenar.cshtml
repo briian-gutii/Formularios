@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Formularios.Models.Campos>
+
+@{
+    var formulario = Model.FirstOrDefault()?.Formulario;
+    ViewBag.Title = "Llenar formulario " + formulario?.Nombre;
+    int contador = 0;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("url", formulario?.Url)
+
+        @foreach (var item in Model)
+        {
+        <div class="form-group">
+            @Html.Label(item.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("detalles[" + contador + "].TipoId", item.TipoId)
+                @Html.Hidden("detalles[" + contador + "].CampoId", item.Id)
+                @{
+                    var tipo = item.Tipos.TipoHtml;
+                    var requerido = item.Requerido == true ? "required" : "";
+                    var inputName = item.Tipos.NombreHtml;
+                }
+                <input type="@tipo" class="form-control" @requerido name="detalles[@contador].@inputName"/>
+                @{contador++;}
+            </div>
+        </div>
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
